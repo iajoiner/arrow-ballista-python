@@ -15,24 +15,22 @@
 // specific language governing permissions and limitations
 // under the License.
 
-/// Copied from https://github.com/apache/arrow-datafusion-python/pull/103
-use datafusion::arrow::datatypes::DataType;
-use pyo3::pyclass;
+digraph G {
 
-#[derive(Debug, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
-#[pyclass(name = "PyDataType", module = "datafusion", subclass)]
-pub struct PyDataType {
-    pub(crate) data_type: DataType,
-}
+    ballista_core
+    ballista_scheduler
+    ballista_executor
+    ballista
+    ballista_cli
 
-impl From<PyDataType> for DataType {
-    fn from(data_type: PyDataType) -> DataType {
-        data_type.data_type
-    }
-}
+    ballista_scheduler -> ballista_core
 
-impl From<DataType> for PyDataType {
-    fn from(data_type: DataType) -> PyDataType {
-        PyDataType { data_type }
-    }
+    ballista_executor -> ballista_core
+
+    ballista -> ballista_core
+    ballista -> ballista_scheduler
+    ballista -> ballista_executor
+
+	ballista_cli -> ballista
+
 }
